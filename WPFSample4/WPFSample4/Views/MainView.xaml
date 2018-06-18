@@ -3,13 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:WPFSample4.ViewModels"
         mc:Ignorable="d"
         Title="MainView" Height="600" Width="600">
-    
-    <Window.DataContext>
-        <vm:MainViewModel />
-    </Window.DataContext>
 
     <DockPanel Dock="Top">
         <GroupBox Header="本のデータを入力してください" Height="100" DockPanel.Dock="Top">
@@ -29,19 +24,15 @@
             </StackPanel>
         </GroupBox>
         <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
-            <Button Content="データ追加" Command ="{Binding AddCommand, Mode=OneWay}"></Button>
-            <Button Content="データ削除" Command ="{Binding DelComamnd}" CommandParameter="{Binding ElementName=nameBookList, Path=SelectedItem}">
-                <Button.Style>
-                    <Style>
-                        <Style.Triggers>
-                            <DataTrigger Binding ="{Binding ElementName=nameBookList, Path=SelectedIndex}" Value="-1">
-                                <Setter Property="Button.IsEnabled" Value="false"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Content="データ全削除" Command ="{Binding DelAllComamnd, Mode=OneWay}"></Button>
+            <Button Content="データ追加"
+                    Command ="{Binding AddCommand, Mode=OneWay}"></Button>
+            <Button Content="データ削除"
+                    Command ="{Binding DelComamnd}"
+                    CommandParameter="{Binding ElementName=nameBookList, Path=SelectedItem}"
+                    IsEnabled="{Binding ElementName=nameBookList, Path=SelectedItems.Count}"/>
+            <Button Content="データ全削除"
+                    Command ="{Binding DelAllComamnd, Mode=OneWay}"
+                    IsEnabled="{Binding ElementName=nameBookList, Path=Items.Count}"/>
         </StackPanel>
         <DockPanel Width="AUto" Height="Auto" DockPanel.Dock="Top">
             <DataGrid Name="nameBookList" ItemsSource="{Binding CollectionList}" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False">

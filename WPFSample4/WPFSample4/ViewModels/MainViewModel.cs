@@ -1,5 +1,4 @@
-﻿
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.ObjectModel;
 using WPFSample4.Models;
